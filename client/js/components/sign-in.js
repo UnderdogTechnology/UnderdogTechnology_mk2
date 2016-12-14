@@ -12,7 +12,7 @@ app.cmp.signIn = {
                 app.model.user.signIn({
                     username: ctrl.username() || '',
                     password: ctrl.password() || ''
-                }, 'Home');
+                }, '/');
             }
         };
         return ctrl;
@@ -43,7 +43,7 @@ app.cmp.signIn = {
                 mutil.formControls([
                     m('button[type="submit"].pure-button.btn.primary', 'Sign In'),
                     m('a.pure-button.btn.secondary', {
-                        onclick: vutil.changeRoute.bind(this, 'Sign Up')
+                        onclick: vutil.changeRoute.bind(this, '/sign-up')
                     }, 'Sign Up')
                 ])
             ])

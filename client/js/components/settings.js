@@ -5,7 +5,8 @@ app.cmp.settings = {
             email: m.prop(app.model.user.current.email || null),
             password: m.prop(null),
             cPassword: m.prop(null),
-            leftHand: m.prop(app.model.settings.leftHand)
+            leftHand: m.prop(app.model.settings.leftHand),
+            easyTouch: m.prop(app.model.settings.easyTouch)
         };
         return ctrl;
     },
@@ -62,6 +63,15 @@ app.cmp.settings = {
                 onchange: function(value) {
                     app.model.settings.leftHand = value;
                     ctrl.leftHand(value);
+                }
+            }),
+            m.component(app.cmp.common.switch, {
+                options: ['On', 'Off'],
+                param: ctrl.easyTouch,
+                label: 'Easy Touch Mode',
+                onchange: function(value) {
+                    app.model.settings.easyTouch = value;
+                    ctrl.easyTouch(value);
                 }
             })
         ]);

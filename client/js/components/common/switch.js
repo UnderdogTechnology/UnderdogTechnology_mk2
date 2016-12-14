@@ -3,7 +3,7 @@ app.cmp.common.switch = {
         var ctrl = {};
         return ctrl;
     }, view: function(ctrl, args) {
-        return m('div.tgl-container', [
+        return m('div.tgl-wrapper', [
             m('label.tgl-label', args.label),
             m('div.tgl', args.attribute, [
                 m('label.tgl-btn', {

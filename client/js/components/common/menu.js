@@ -68,22 +68,23 @@ app.cmp.common.menu = {
             }
         };
         
-        app.shared.active.menu = app.shared.active.menu || args.items[m.route()];
-        app.shared.active.class = app.shared.active.menu.class;
+        app.shared.active.menu = args.items[m.route()];
         app.shared.menuItems = {};
         
-        app.shared.swipe.add(app.model.settings.leftHand ? 'left' : 'right', ctrl.show);
-        app.shared.swipe.add(app.model.settings.leftHand ? 'right' : 'left', ctrl.hide);
+        app.shared.swipe.add(app.model.settings.leftHand ? 'right' : 'left', ctrl.show);
+        app.shared.swipe.add(app.model.settings.leftHand ? 'left' : 'right', ctrl.hide);
         
         return ctrl;
     },
     view: function(ctrl, args) {
-        return m('div.menu-wrapper', [
+        return m('div.menu-wrapper', {
+                class: app.model.settings.easyTouch ? 'easy-touch' : ''
+            }, [
             m('div.overlay', {
                 onclick: ctrl.hide
             }),
             m('span.menu-btn.fa.fa-bars', {
-                class: app.shared.active.class,
+                class: app.shared.active.menu.class,
                 onclick: ctrl.toggle
             }),
             m('div.menu.menu-one-' + (ctrl.visible() ? 'visible' : 'hidden'), [
@@ -103,7 +104,8 @@ app.cmp.common.menu = {
                             m('i.nav-icon', {
                                 class: 'fa fa-' + item.icon + ' fa-lg'
                             }),
-                            m('span.item-label', item.label)
+                            m('span.item-label', item.label),
+                            (item.children ? m('i.fa.fa-chevron-right.menu-show-children') : null)
                         ]))
                     })
                 )
