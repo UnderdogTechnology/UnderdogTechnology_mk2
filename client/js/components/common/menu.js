@@ -1,56 +1,3 @@
-var items = {
-    'Home': {
-        label: 'Home',
-        href: '/',
-        icon: 'home',
-        class: 'primary',
-        auth: 'any'
-    },
-    'Sign Up': {
-        label: 'Sign Up',
-        href: '/sign-up',
-        icon: 'user-plus',
-        class: 'primary'
-    },
-    'Sign In': {
-        label: 'Sign In',
-        href: '/sign-in',
-        icon: 'sign-in',
-        class: 'primary'
-    },
-    'Sign Out': {
-        label: 'Sign Out',
-        href: '/sign-out',
-        icon: 'sign-out',
-        class: 'primary',
-        auth: 'loggedin'
-    },
-    'Plan.it': {
-        label: 'Plan.it',
-        icon: 'rocket',
-        class: 'primary planit',
-        slogan: 'Randomize your choice.',
-        children: ['Pi-Find','Pi-Edit'],
-        auth: '_admin'
-    },
-    'Pi-Find': {
-        label: 'Find',
-        href: '/plan-it/find',
-        icon: 'search',
-        class: 'primary planit',
-        parent: 'Plan.it',
-        auth: '_admin'
-    },
-    'Pi-Edit': {
-        label: 'Edit',
-        href: '/plan-it/edit',
-        icon: 'pencil-square-o',
-        class: 'primary planit',
-        parent: 'Plan.it',
-        auth: '_admin'
-    }
-};
-
 app.cmp.common.menu = {
     controller: function(args) {
         var speed = 275;
@@ -62,8 +9,10 @@ app.cmp.common.menu = {
                 if(!ctrl.visible()) {
                     Velocity(util.q('.menu-wrapper .overlay'), 'fadeIn', speed);
                     
-                    if(app.shared.active.menu.parent)
+                    if(app.shared.active.menu.parent) {
+                        ctrl.parent = args.items[app.shared.active.menu.parent];
                         ctrl.showChildren();
+                    }
                     
                     ctrl.visible(true);
                 }
@@ -103,7 +52,7 @@ app.cmp.common.menu = {
                 var active = ctrl.parent || app.shared.active.menu;
                 if(active.children) return active.children;
                 
-                if(active.parent && items[active.parent]) return items[active.parent].children;
+                if(active.parent && args.items[active.parent]) return args.items[active.parent].children;
             },
             toggle: function() {
                 if (ctrl.visible()) {
@@ -119,11 +68,12 @@ app.cmp.common.menu = {
             }
         };
         
-        app.shared.active.menu = app.shared.active.menu || items['Home'];
+        app.shared.active.menu = app.shared.active.menu || args.items[m.route()];
+        app.shared.active.class = app.shared.active.menu.class;
         app.shared.menuItems = {};
         
-        app.shared.swipe.add(app.settings.hand === 'right' ? 'left' : 'right', ctrl.show);
-        app.shared.swipe.add(app.settings.hand, ctrl.hide);
+        app.shared.swipe.add(app.model.settings.leftHand ? 'left' : 'right', ctrl.show);
+        app.shared.swipe.add(app.model.settings.leftHand ? 'right' : 'left', ctrl.hide);
         
         return ctrl;
     },
@@ -138,8 +88,8 @@ app.cmp.common.menu = {
             }),
             m('div.menu.menu-one-' + (ctrl.visible() ? 'visible' : 'hidden'), [
                 m('ul',
-                    Object.keys(items).map(function(key, index) {
-                        item = items[key];
+                    Object.keys(args.items).map(function(key, index) {
+                        item = args.items[key];
                         if(item.parent || !app.model.user.hasAccess(item.auth)) return;
                         
                         app.shared.menuItems[key] = item;
@@ -147,7 +97,7 @@ app.cmp.common.menu = {
                         return m('li', {
                             role: 'presentation'
                         }, m('a', {
-                            class: (app.shared.active.menu.label == key ? '' : 'inverse-') + item.class,
+                            class: (app.shared.active.menu.href === key || app.shared.active.menu.parent === key ? '' : 'inverse-') + item.class,
                             onclick: item.children ? ctrl.showChildren.bind(this, item) : ctrl.changeRoute.bind(this, key)
                         }, [
                             m('i.nav-icon', {
@@ -168,7 +118,7 @@ app.cmp.common.menu = {
                 ]),
                 m('ul',
                     (ctrl.getChildren() || []).map(function(key, index) {
-                        item = items[key];
+                        item = args.items[key];
                         if(!app.model.user.hasAccess(item.auth)) return;
                         
                         app.shared.menuItems[key] = item;
@@ -176,7 +126,7 @@ app.cmp.common.menu = {
                         return m('li', {
                             role: 'presentation'
                         }, m('a', {
-                            class: (app.shared.active.menu.label == key ? '' : 'inverse-') + item.class,
+                            class: (app.shared.active.menu.href == key ? '' : 'inverse-') + item.class,
                             href: key,
                             onclick: ctrl.changeRoute.bind(this, key)
                         }, [

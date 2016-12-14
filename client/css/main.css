@@ -139,12 +139,14 @@ body {
 
 .layout.left-hand .menu-btn {
     float: left;
-    padding-left: .7em;
+    margin-left: .7em;
+    margin-right: -1.7em;
 }
 
 .layout.right-hand .menu-btn {
     float: right;
-    padding-right: .7em;
+    margin-right: .7em;
+    margin-left: -1.7em;
 }
 
 .menu > ul li a {

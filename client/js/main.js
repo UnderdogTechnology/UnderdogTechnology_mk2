@@ -15,23 +15,79 @@
     });
     
     app.shared = {
-        active: {
+        active: {}
+    };
+    
+    var menuItems = {
+        '/': {
+            label: 'Home',
+            href: '/',
+            icon: 'home',
+            class: 'primary',
+            auth: 'any'
+        },
+        '/sign-up': {
+            label: 'Sign Up',
+            href: '/sign-up',
+            icon: 'user-plus',
             class: 'primary'
+        },
+        '/sign-in': {
+            label: 'Sign In',
+            href: '/sign-in',
+            icon: 'sign-in',
+            class: 'primary'
+        },
+        '/sign-out': {
+            label: 'Sign Out',
+            href: '/sign-out',
+            icon: 'sign-out',
+            class: 'primary',
+            auth: 'loggedin'
+        },
+        '/settings': {
+            label: 'Settings',
+            href: '/settings',
+            icon: 'wrench',
+            class: 'primary',
+            auth: 'loggedin'
+        },
+        '/plan-it': {
+            label: 'Plan.it',
+            icon: 'rocket',
+            class: 'primary planit',
+            slogan: 'Randomize your choice.',
+            children: ['/plan-it/find','/plan-it/edit'],
+            auth: '_admin'
+        },
+        '/plan-it/find': {
+            label: 'Find',
+            href: '/plan-it/find',
+            icon: 'search',
+            class: 'primary planit',
+            parent: '/plan-it',
+            auth: '_admin'
+        },
+        '/plan-it/edit': {
+            label: 'Edit',
+            href: '/plan-it/edit',
+            icon: 'pencil-square-o',
+            class: 'primary planit',
+            parent: '/plan-it',
+            auth: '_admin'
         }
     };
     
-    app.settings = {
-        hand: 'right'
-    }
-    
     var layout = function(title, content) {
         return m('div.layout', {
-           class: app.settings.hand + '-hand' 
+           class: (app.model.settings.leftHand ? 'left' : 'right') + '-hand' 
         }, [
-            m(app.cmp.common.menu, {}),
+            m(app.cmp.common.menu, {
+                items: menuItems
+            }),
             m('div.wrapper', [
                 m('div.header', {
-                    class: app.shared.active.class
+                    class:  menuItems[m.route()].class
                 }, [
                     m('span', title)
                 ]),
@@ -68,7 +124,9 @@
                 '/sign-in': r('Sign In', cmp.signIn),
                 '/sign-out': r('Sign In', cmp.signIn, {
                     signOut: true
-                })
+                }),
+                '/settings': r('Settings', cmp.settings),
+                '/plan-it/find': r('Find', cmp.planIt.find),
             });
         })
     }
@@ -77,14 +135,16 @@
         // MODELS
         models: [
             // UNDERDOG
-            'user'
+            'user', 'settings'
         ],
         // COMPONENTS
         components: [
+            // PLAN.IT
+            'plan-it/find',
             // COMMON
-            'common/menu', 'common/alert',
+            'common/menu', 'common/alert', 'common/detail-box', 'common/switch',
             // UNDERDOG
-            'home', 'sign-in'
+            'home', 'sign-in', 'settings'
         ]
     };
     
@@ -97,7 +157,8 @@
     };
     
     app.cmp = {
-        common: {}
+        common: {},
+        planIt: {}
     };
     
     app.model = {};
