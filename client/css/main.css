@@ -1,0 +1,474 @@
+/*****************
+**    HEADER    **
+******************/
+
+.header {
+    height: 50px;
+    line-height: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    font-weight: bold;
+    font-size: 1.6em;
+    text-align: center;
+    background: #333;
+    margin: 0;
+}
+
+/*****************
+**    CONTENT   **
+******************/
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9998;
+    background-color: rgba(0, 0, 0, .65);
+}
+
+.layout {
+    position:absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    overflow:hidden;
+}
+
+a {
+    text-decoration:none;
+}
+
+body {
+    -webkit-user-select: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+.content {
+    position: fixed;
+    overflow-y: auto;
+    top: 51px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: .7em;
+    margin: 0 auto;
+}
+
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+.loading {
+    display: none;
+    width:150px;
+    margin: 100px auto;
+    clear: both;
+}
+
+.loading img{
+    width:150px;
+    animation:spin 800ms linear infinite;
+}
+
+/*****************
+**      MENU    **
+******************/
+
+.menu-heading {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    padding: 10px 0;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+.menu {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    min-height: 400px;
+    font-size: 1.2em !important;
+    width: 250px;
+    background: #fff;
+    z-index: 9999;
+    transition: left 250ms, right 250ms;
+}
+
+.menu > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu-btn {
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.6em;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 250ms;
+}
+
+.layout.left-hand .menu-one-hidden,
+.layout.left-hand .menu-two-hidden {
+    left: -300px;
+}
+
+.layout.left-hand .menu-one-visible,
+.layout.left-hand .menu-two-visible {
+    left: 0px;
+}
+
+.layout.right-hand .menu-one-hidden,
+.layout.right-hand .menu-two-hidden {
+    right: -300px;
+}
+
+.layout.right-hand .menu-one-visible,
+.layout.right-hand .menu-two-visible {
+    right: 0px;
+}
+
+.layout.left-hand .menu-btn {
+    float: left;
+    padding-left: .7em;
+}
+
+.layout.right-hand .menu-btn {
+    float: right;
+    padding-right: .7em;
+}
+
+.menu > ul li a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    display: block;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.menu .fa {
+    width: 60px;
+    text-align: center;
+}
+
+.menu .menu-show-children {
+    float: right;
+    padding-top: .25em;
+}
+
+/*****************
+**     D-BOX    **
+******************/
+
+.d-box,
+.d-box-hidden {
+    border-radius: 2px;
+    margin: .7em auto;
+    overflow: hidden;
+    transition: height 275ms;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+
+.d-box-header {
+    height: 36px;
+    line-height: 36px;
+    padding-left: .6em;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.d-box-knob {
+    float: right;
+    padding: .6em;
+    transition: transform 275ms;
+}
+
+.d-box-content {
+    padding: .6em;
+}
+
+.d-box-hidden .d-box-knob {
+    transform: rotate(90deg);
+}
+
+/*****************
+**    TOGGLE    **
+******************/
+
+.tgl {
+    float: right;
+    border-radius: 2px;
+    position: relative;
+    height: 25px;
+    width: 65px;
+    border: 1px solid #999;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tgl .tgl-btn {
+    font-weight: normal;
+    position: absolute;
+    left: -3px;
+    display: inline-block;
+    overflow: hidden;
+    color: #fff;
+    width: 150px;
+    -webkit-transition: left 400ms, left 400ms, -webkit-transform 400ms;
+    transition: left 400ms, left 400ms, transform 400ms;
+}
+
+.tgl .tgl-btn div {
+    height: 25px;
+    width: 57px;
+    line-height: 25px;
+    text-align: center;
+    float: left;
+}
+
+.tgl .tgl-btn .tgl-opt.primary,
+.tgl .tgl-btn .tgl-opt.secondary {
+    text-shadow: none;
+}
+
+.tgl .tgl-btn .separator {
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    width: 10px;
+    background: #fff;
+}
+
+.tgl .tgl-btn.tgl-off {
+    left: -58px;
+}
+
+.tgl .tgl-switch {
+    display: none;
+}
+
+/*****************
+**     FORM     **
+******************/
+
+.center-form .pure-controls .btn.primary {
+    float: right;
+}
+
+.center-form .pure-controls .btn {
+    margin: 0;
+}
+
+.form-control {
+    width: 100%;
+}
+
+div.form-control {
+    vertical-align: top;
+    display: inline-block;
+}
+
+div.form-control > table {
+    width: 100%;
+}
+
+.btn {
+    border: 1px solid;
+    text-shadow: none !important;
+    color: #fff;
+    padding: .6em 1em;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*****************
+**    FOOTER    **
+******************/
+
+.footer {
+    font-size: .6em;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5em;
+}
+
+/*****************
+**     ALERT    **
+******************/
+
+.alert {
+    text-align:center;
+    cursor: pointer;
+    z-index:999;
+    position: fixed;
+    top: -55px;
+    left: 0;
+    right: 0;
+    height: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    margin: 0;
+    color: #666;
+    transition: all 200ms ease 0s;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.alert-text {
+    margin-top: 5px;
+    width:80%;
+}
+
+.alert-icon {
+    float: left;
+    margin: .85em;
+}
+
+.alert-visible {
+    top: 0px;
+}
+
+.alert-hidden {
+    top: -55px;
+}
+
+.alert.error {
+    background: #f2dede;
+}
+
+.alert.warning {
+    background: #f1e7b6;
+}
+
+.alert.success {
+    background: #9aefad;
+}
+
+.form-control.error,
+.form-control.error:focus{
+    outline:0;
+    border-color: #ce6f6f !important;
+    color:#000 !important;
+}
+
+.form-control.success,
+.form-control.success:focus{
+    outline:0;
+    border-color: #257d65 !important;
+    color:#000 !important;
+}
+
+/*****************
+**    PROMPT    **
+******************/
+
+.prompt .output {
+    position:absolute;
+    top:36px;
+    right:0;
+    left:0;
+    bottom:0;
+    background: #999;
+    color: #555;
+}
+
+.prompt .input {
+    position:absolute;
+    top:0;
+    height: 30px;
+}
+
+/*****************
+**    COLORS    **
+******************/
+
+.primary {
+    /*text-shadow: -1px 0 #515b7d, 0 1px #515b7d, 1px 0 #515b7d, 0 -1px #515b7d;*/
+    background: #41518e;
+    border-color: #515b7d;
+    color: #fff;
+}
+
+.inverse-primary {
+    background: #fff;
+    color: #41518e;
+}
+
+.secondary {
+    background: #0BB287;
+    border-color: #148264;
+    color: #fff;
+}
+
+.inverse-secondary {
+    background: #fff;
+    color: #0BB287;
+}
+
+.primary.planit {
+    /*text-shadow: -1px 0 #B54132, 0 1px #B54132, 1px 0 #B54132, 0 -1px #B54132;*/
+    background: #F0592B;
+    border-color: #B54132;
+}
+
+.inverse-primary.planit {
+    background: #fff;
+    color: #F0592B;
+}
+
+/* Maybe change this color to something dope af */
+
+.primary.story {
+    /*text-shadow: -1px 0 #ff0707, 0 1px #ff0707, 1px 0 #ff0707, 0 -1px #ff0707;*/
+    background: #dc3232;
+    border-color: #ff0707;
+}
+
+.inverse-primary.story {
+    background: #fff;
+    color: #dc3232;
+}
+
+/*****************
+**   w: 480px   **
+******************/
+
+@media screen and (min-width: 480px) {
+    
+    .alert-visible {
+        top: inherit;
+        bottom: 0px;
+    }
+    
+    .alert-hidden {
+        top: inherit;
+        bottom: -55px;
+    }
+    
+    .form-control {
+        width: 60%;
+    }
+    
+    .center-form .pure-controls .btn.primary {
+        float: none;
+    }
+    
+    .center-form .pure-controls .btn {
+        margin: 0 1em 0 0 !important;
+    }
+
+}
