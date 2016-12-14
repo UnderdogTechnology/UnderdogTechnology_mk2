@@ -114,7 +114,7 @@ body {
     cursor: pointer;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
-    transition: background-color 250ms, margin 250ms, float 250ms;
+    transition: background-color 250ms, margin 250ms;
 }
 
 .layout.left-hand .menu-one-hidden,

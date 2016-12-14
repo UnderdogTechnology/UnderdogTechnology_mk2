@@ -65,24 +65,22 @@ var util = {
  ** Velocity Specific Utilities
  **/
  
- var speed = 275;
- 
  var vutil = {
     changeRoute: function(id) { 
         var header = util.q('.header span');
         
         var item = app.shared.menuItems[id];
             
-        Velocity(util.q('.content'), 'fadeOut', speed)
-        Velocity(util.q('.loading'), 'fadeIn', speed)
+        Velocity(util.q('.content'), 'fadeOut', app.model.settings.animationSpeed)
+        Velocity(util.q('.loading'), 'fadeIn', app.model.settings.animationSpeed)
         util.q('.header').className = 'header ' + item.class;
         util.q('.menu-btn').className = 'menu-btn fa fa-bars ' + item.class;
         Velocity(header, {
                 fontSize: 0
-            }, speed).then(function(el) {
+            }, app.model.settings.animationSpeed).then(function(el) {
                 
             el[0].textContent = item.name;
-            Velocity(el[0], 'reverse', speed).then(function() {
+            Velocity(el[0], 'reverse', app.model.settings.animationSpeed).then(function() {
                 m.route(item.href);
             });
         });

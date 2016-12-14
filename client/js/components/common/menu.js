@@ -1,13 +1,12 @@
 app.cmp.common.menu = {
     controller: function(args) {
-        var speed = 275;
         var ctrl = {
             parent: null,
             visible: args.visible || m.prop(false),
             childVisible: args.childVisible || m.prop(false),
             show: function() {
                 if(!ctrl.visible()) {
-                    Velocity(util.q('.menu-wrapper .overlay'), 'fadeIn', speed);
+                    Velocity(util.q('.menu-wrapper .overlay'), 'fadeIn', app.model.settings.animationSpeed);
                     
                     if(app.shared.active.menu.parent) {
                         ctrl.parent = args.items[app.shared.active.menu.parent];
@@ -19,7 +18,7 @@ app.cmp.common.menu = {
             },
             hide: function() {
                 if(ctrl.visible()) {
-                    Velocity(util.q('.menu-wrapper .overlay'), 'fadeOut', speed);
+                    Velocity(util.q('.menu-wrapper .overlay'), 'fadeOut', app.model.settings.animationSpeed);
                     
                     ctrl.visible(false);
                     ctrl.hideChildren();
@@ -46,7 +45,7 @@ app.cmp.common.menu = {
                 ctrl.childVisible(false);
                 setTimeout(function() {
                     ctrl.parent = null;
-                }, speed);
+                }, app.model.settings.animationSpeed);
             },
             getChildren: function() {
                 var active = ctrl.parent || app.shared.active.menu;
