@@ -121,12 +121,13 @@
             
             m.route(document.body, '/', {
                 '/': r('Home', cmp.home),
+                '/sign-up': r('Sign In', cmp.signUp),
                 '/sign-in': r('Sign In', cmp.signIn),
                 '/sign-out': r('Sign In', cmp.signIn, {
                     signOut: true
                 }),
                 '/settings': r('Settings', cmp.settings),
-                '/plan-it/find': r('Find', cmp.planIt.find),
+                '/plan-it/find': r('Find', cmp.planIt.find)
             });
         })
     }
@@ -144,7 +145,7 @@
             // COMMON
             'common/menu', 'common/alert', 'common/detail-box', 'common/switch',
             // UNDERDOG
-            'home', 'sign-in', 'settings'
+            'home', 'sign-up', 'sign-in', 'settings'
         ]
     };
     

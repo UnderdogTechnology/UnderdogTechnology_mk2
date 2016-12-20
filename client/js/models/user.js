@@ -92,7 +92,6 @@
             if(value) {
                 var regex = null,
                     msgName = '',
-                    valueTwo = null,
                     arePasswordsValid = true;
                     
                     switch(type) {
@@ -102,21 +101,24 @@
                             break;
                         case 'password':
                             regex = /[A-Za-z0-9]{8}/;
-                            if(Array.isArray(value)) {
-                                valueTwo = value[1];
-                                value = value[0];
-                            }
                             msgName = 'invalid_password';
+                            if(Array.isArray(value)) {
+                                var valueTwo = value[1];
+                                value = value[0];
+                                arePasswordsValid = regex.test(valueTwo);
+                                
+                                if(!value || !valueTwo){
+                                    msgName = 'required_password';
+                                } else if(valueTwo !== value) {
+                                    arePasswordsValid = false;
+                                    msgName = 'mismatch_password';
+                                }
+                            }
                             break;
                         case 'username':
                             regex = /[A-Za-z0-9]{5,15}/;
                             msgName = 'invalid_username';
                             break;
-                    }
-                    
-                    if(valueTwo) {
-                        arePasswordsValid = (valueTwo === value && regex.test(valueTwo));
-                        msgName = 'mismatch_password';
                     }
                     
                     if(!regex.test(value) || !arePasswordsValid) {

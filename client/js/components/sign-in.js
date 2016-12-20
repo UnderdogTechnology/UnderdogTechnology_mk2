@@ -15,6 +15,7 @@ app.cmp.signIn = {
                 }, '/');
             }
         };
+        
         return ctrl;
     },
     view: function(ctrl, args) {
