@@ -1,7 +1,7 @@
 app.cmp.signUp = {
     controller: function(args) {
         var ctrl = {
-            username: m.prop(null),
+            name: m.prop(null),
             password: m.prop(null),
             cPassword: m.prop(null),
             email: m.prop(null),
@@ -9,7 +9,7 @@ app.cmp.signUp = {
                 e.preventDefault();
                 app.model.user.signUp({
                     email: ctrl.email() || '',
-                    username: ctrl.username() || '',
+                    name: ctrl.name() || '',
                     password: [
                         ctrl.password() || '',
                         ctrl.cPassword() || ''
@@ -40,8 +40,8 @@ app.cmp.signUp = {
                         autocorrect: 'off',
                         autocapitalize: 'none',
                         placeholder: 'Username',
-                        value: ctrl.username(),
-                        onchange: m.withAttr('value', ctrl.username)
+                        value: ctrl.name(),
+                        onchange: m.withAttr('value', ctrl.name)
                     })
                 ]),
                 mutil.formGroup([

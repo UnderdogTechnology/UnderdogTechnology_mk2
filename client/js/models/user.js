@@ -115,7 +115,7 @@
                                 }
                             }
                             break;
-                        case 'username':
+                        case 'name':
                             regex = /[A-Za-z0-9]{5,15}/;
                             msgName = 'invalid_username';
                             break;
@@ -133,7 +133,7 @@
                     case 'password':
                         msgName = 'required_password';
                         break;
-                    case 'username':
+                    case 'name':
                         msgName = 'required_username';
                         break;
                 }
@@ -162,7 +162,7 @@
     user.signIn = function(obj, route) {
         if(!user.isValid(obj)) return;
         
-        return app.db.remote.login(obj.username.toLowerCase(), obj.password).then(function() {
+        return app.db.remote.login(obj.name.toLowerCase(), obj.password).then(function() {
             return user.restoreUser();
         }).then(function() {
             if(route) vutil.changeRoute(route);
@@ -172,13 +172,13 @@
     user.signUp = function(obj, route) {
         if(!user.isValid(obj)) return;
         
-        return app.db.remote.signup(obj.username.toLowerCase(), obj.password[0], {
+        return app.db.remote.signup(obj.name.toLowerCase(), obj.password[0], {
             metadata: {
                 email: obj.email
             }
         }).then(function() {
             return app.model.user.signIn({
-                username: obj.username,
+                name: obj.name,
                 password: obj.password[0]
             }, route)
         }).then(function() {
@@ -207,14 +207,14 @@
         });
     };
     
-    user.get = function(username, roles) {
+    user.get = function(name, roles) {
         if(!app.db.connected) return app.db.local.get('_local/user').then(function(u) {
             user.current = u;
         })
         
-        username = username || user.current.username;
+        name = name || user.current.name;
         
-        return app.db.remote.getUser(username.toLowerCase()).then(function(u){
+        return app.db.remote.getUser(name.toLowerCase()).then(function(u){
             user.current = u;
             
             if(roles)
@@ -244,21 +244,21 @@
         for(var attr in obj) {
             if(obj.hasOwnProperty(attr)) {
                 if(attr === 'password') {
-                    promises.push(app.db.remote.changePassword(obj.username, obj.password)).then(function() {
+                    promises.push(app.db.remote.changePassword(obj.name, obj.password)).then(function() {
                         showMessage('changed_password');
                     }).catch(showMessage)
                 } else if (attr === 'username') {
-                    promises.push(app.db.remote.changeUsername(obj.prevUsername, obj.username).then(function() {
+                    promises.push(app.db.remote.changeUsername(obj.prevName, obj.name).then(function() {
                         showMessage('changed_username');
                         return user.restoreUser();
                     })).catch(showMessage)
-                } else if( attr !== 'prevUsername') 
+                } else if( attr !== 'prevName')
                     meta[attr] = obj[attr];
             }
         }
         
         if(Object.keys(meta).length) {
-            promises.push(app.db.remote.putUser(obj.username, {
+            promises.push(app.db.remote.putUser(obj.name, {
                 metadata: meta
             })).then(user.restoreUser).catch(showMessage)
         }

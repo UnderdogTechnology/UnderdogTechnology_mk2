@@ -8,6 +8,11 @@ app.cmp.common.dBox = {
                 ctrl.contentHeight(parseInt(height.slice(0, height.length - 2)) + 36 + 20);
             },
             show: function(evt) {
+                
+                /*
+                    TODO: use Velocity
+                */
+                
                 ctrl.getContentHeight(evt);
                 ctrl.hidden(false);
             },

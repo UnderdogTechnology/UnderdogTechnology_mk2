@@ -5,12 +5,12 @@ app.cmp.signIn = {
         }
         
         var ctrl = {
-            username: m.prop(null),
+            name: m.prop(null),
             password: m.prop(null),
             signIn: function(e) {
                 e.preventDefault();
                 app.model.user.signIn({
-                    username: ctrl.username() || '',
+                    name: ctrl.name() || '',
                     password: ctrl.password() || ''
                 }, '/');
             }
@@ -29,8 +29,8 @@ app.cmp.signIn = {
                         autocorrect: 'off',
                         autocapitalize: 'none',
                         placeholder: 'Username',
-                        value: ctrl.username(),
-                        onchange: m.withAttr('value', ctrl.username)
+                        value: ctrl.name(),
+                        onchange: m.withAttr('value', ctrl.name)
                     })
                 ]),
                 mutil.formGroup([

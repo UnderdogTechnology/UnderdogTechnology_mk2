@@ -1,12 +1,10 @@
 app.cmp.settings = {
     controller: function(args) {
         var ctrl = {
-            username: m.prop(app.model.user.current.name || null),
+            name: m.prop(app.model.user.current.name || null),
             email: m.prop(app.model.user.current.email || null),
             password: m.prop(null),
-            cPassword: m.prop(null),
-            leftHand: m.prop(app.model.settings.leftHand),
-            easyTouch: m.prop(app.model.settings.easyTouch)
+            cPassword: m.prop(null)
         };
         return ctrl;
     },
@@ -23,7 +21,7 @@ app.cmp.settings = {
                             autocapitalize: 'none',
                             readonly: true,
                             placeholder: 'Username',
-                            value: ctrl.username()
+                            value: ctrl.name()
                         })
                     ]),
                     mutil.formGroup([
@@ -58,21 +56,19 @@ app.cmp.settings = {
             }),
             m.component(app.cmp.common.switch, {
                 options: ['On', 'Off'],
-                param: ctrl.leftHand,
-                label: 'Left Hand Mode',
-                onchange: function(value) {
-                    app.model.settings.leftHand = value;
-                    ctrl.leftHand(value);
-                }
+                param: app.model.settings.leftHand,
+                label: 'Left Hand Mode'
             }),
             m.component(app.cmp.common.switch, {
                 options: ['On', 'Off'],
-                param: ctrl.easyTouch,
-                label: 'Easy Touch Mode',
-                onchange: function(value) {
-                    app.model.settings.easyTouch = value;
-                    ctrl.easyTouch(value);
-                }
+                param: app.model.settings.easyTouch,
+                label: 'Easy Touch Mode'
+            }),
+            m.component(app.cmp.common.slider, {
+                param: app.model.settings.animationSpeed,
+                label: 'Animation Speed (' + app.model.settings.animationSpeed() + 'ms)',
+                min: 200,
+                max: 300
             })
         ]);
     }

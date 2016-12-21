@@ -35,10 +35,10 @@ var util = {
         }
         return obj[keys[ranNum]];
     },
-    formatter: function(string, obj) {
+    f: function(string, obj) {
         for (var key in obj) {
             if (obj.hasOwnProperty(key)) {
-                string = string.replace('{' + key + '}', obj[key], 'g');
+                string = string.replace(new RegExp('<' + key + '>', 'g'), obj[key]);
             }
         }
         return string;
@@ -71,16 +71,16 @@ var util = {
         
         var item = app.shared.menuItems[id];
             
-        Velocity(util.q('.content'), 'fadeOut', app.model.settings.animationSpeed)
-        Velocity(util.q('.loading'), 'fadeIn', app.model.settings.animationSpeed)
+        Velocity(util.q('.content'), 'fadeOut', app.model.settings.animationSpeed())
+        Velocity(util.q('.loading'), 'fadeIn', app.model.settings.animationSpeed())
         util.q('.header').className = 'header ' + item.class;
         util.q('.menu-btn').className = 'menu-btn fa fa-bars ' + item.class;
         Velocity(header, {
                 fontSize: 0
-            }, app.model.settings.animationSpeed).then(function(el) {
+            }, app.model.settings.animationSpeed()).then(function(el) {
                 
             el[0].textContent = item.name;
-            Velocity(el[0], 'reverse', app.model.settings.animationSpeed).then(function() {
+            Velocity(el[0], 'reverse', app.model.settings.animationSpeed()).then(function() {
                 m.route(item.href);
             });
         });

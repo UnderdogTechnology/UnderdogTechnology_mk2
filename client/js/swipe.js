@@ -5,6 +5,7 @@
     var distY;
     var maxTime = 300;
     var threshold = 100;
+    var restraint = 80;
     var startTime;
     
     var commands = {};
@@ -17,6 +18,11 @@
     });
     
     window.addEventListener('touchend', function(e) {
+        
+        /*
+            TODO: add check for coordinates        
+        */
+        
         if(Date.now() - startTime > maxTime) return;
         var touch = e.changedTouches[0];
         var distX = touch.pageX - startX;
@@ -29,17 +35,41 @@
             down: distY > threshold
         };
         
+        swipe.bLtoTr = swipe.up && swipe.right;
+        swipe.bRtoTl = swipe.up && swipe.left;
+        
+        swipe.tLtoBr = swipe.down && swipe.right;
+        swipe.tRtoBl = swipe.down && swipe.left;
+        
         for(var dir in swipe) {
             if(swipe.hasOwnProperty(dir) && swipe[dir] && commands.hasOwnProperty(dir)) {
-                commands[dir]();
+                switch(dir) {
+                    case 'left':
+                    case 'right':
+                        if(swipe.up || swipe.down) return;
+                        break;
+                    case 'up':
+                    case 'down':
+                        if(swipe.left || swipe.right) return;
+                        break;
+                }
+                
+                if(commands[dir].selector)  {
+                    var rect = util.q(commands[dir].selector).getBoundingClientRect();
+                    
+                    if(startY > rect.bottom + restraint || startY < rect.top - restraint) return;
+                    if(startX > rect.right + restraint || startX < rect.left - restraint) return;
+                }
+                
+                commands[dir].callback();
                 m.redraw();
             }
         }
     });
     
     app.shared.swipe = {
-        add: function(dir, cb) {
-            commands[dir] = cb;
+        add: function(dir, obj) {
+            commands[dir] = obj;
         }
     }
     

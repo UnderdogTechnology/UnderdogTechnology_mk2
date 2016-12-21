@@ -6,7 +6,7 @@ app.cmp.common.menu = {
             childVisible: args.childVisible || m.prop(false),
             show: function() {
                 if(!ctrl.visible()) {
-                    Velocity(util.q('.menu-wrapper .overlay'), 'fadeIn', app.model.settings.animationSpeed);
+                    Velocity(util.q('.menu-wrapper .overlay'), 'fadeIn', app.model.settings.animationSpeed());
                     
                     if(app.shared.active.menu.parent) {
                         ctrl.parent = args.items[app.shared.active.menu.parent];
@@ -18,7 +18,7 @@ app.cmp.common.menu = {
             },
             hide: function() {
                 if(ctrl.visible()) {
-                    Velocity(util.q('.menu-wrapper .overlay'), 'fadeOut', app.model.settings.animationSpeed);
+                    Velocity(util.q('.menu-wrapper .overlay'), 'fadeOut', app.model.settings.animationSpeed());
                     
                     ctrl.visible(false);
                     ctrl.hideChildren();
@@ -45,7 +45,7 @@ app.cmp.common.menu = {
                 ctrl.childVisible(false);
                 setTimeout(function() {
                     ctrl.parent = null;
-                }, app.model.settings.animationSpeed);
+                }, app.model.settings.animationSpeed());
             },
             getChildren: function() {
                 var active = ctrl.parent || app.shared.active.menu;
@@ -70,14 +70,22 @@ app.cmp.common.menu = {
         app.shared.active.menu = args.items[m.route()];
         app.shared.menuItems = {};
         
-        app.shared.swipe.add(app.model.settings.leftHand ? 'right' : 'left', ctrl.show);
-        app.shared.swipe.add(app.model.settings.leftHand ? 'left' : 'right', ctrl.hide);
-        
         return ctrl;
     },
     view: function(ctrl, args) {
+        
+        setTimeout(function() {
+            app.shared.swipe.add(app.model.settings.leftHand() ? 'right' : 'left', {
+                callback: ctrl.show,
+                selector: '.menu'
+            });
+            app.shared.swipe.add(app.model.settings.leftHand() ? 'left' : 'right', {
+                callback: ctrl.hide
+            });
+        }, 1)
+        
         return m('div.menu-wrapper', {
-                class: app.model.settings.easyTouch ? 'easy-touch' : ''
+                class: app.model.settings.easyTouch() ? 'easy-touch' : ''
             }, [
             m('div.overlay', {
                 onclick: ctrl.hide

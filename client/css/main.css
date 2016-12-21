@@ -98,7 +98,6 @@ body {
     width: 250px;
     background: #fff;
     z-index: 9999;
-    transition: left 250ms, right 250ms;
 }
 
 .menu > ul {
@@ -114,7 +113,6 @@ body {
     cursor: pointer;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
-    transition: background-color 250ms, margin 250ms;
 }
 
 .layout.left-hand .menu-one-hidden,
@@ -179,12 +177,10 @@ body {
 **     D-BOX    **
 ******************/
 
-.d-box,
-.d-box-hidden {
+.d-box {
     border-radius: 2px;
     margin: .7em auto;
     overflow: hidden;
-    transition: height 275ms;
     box-shadow: 0 2px 5px rgba(0,0,0,0.26);
 }
 
@@ -201,7 +197,6 @@ body {
 .d-box-knob {
     float: right;
     padding: .6em;
-    transition: transform 275ms;
 }
 
 .d-box-content {
@@ -210,6 +205,109 @@ body {
 
 .d-box-hidden .d-box-knob {
     transform: rotate(90deg);
+}
+
+/*****************
+**    SLIDER    **
+******************/
+
+/*
+    TODO: Fix up the slider css
+*/
+
+.slider-wrapper > input {
+    margin: 5px auto;
+    -webkit-appearance: none;
+    width: 50%;
+    background: transparent;
+    float: right;
+}
+
+.slider-wrapper > input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+.slider-wrapper > input:focus {
+    outline: none;
+}
+
+.slider-wrapper > input::-ms-track {
+    width: 60%;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+.slider-wrapper > input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid #999;
+    height: 25px;
+    width: 12px;
+    border-radius: 2px;
+    background: #ffffff;
+    cursor: pointer;
+    margin-top: -10px; 
+}
+
+.slider-wrapper > input::-moz-range-thumb {
+    border: 1px solid #999;
+    height: 25px;
+    width: 10px;
+    border-radius: 2px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.slider-wrapper > input::-ms-thumb {
+    border: 1px solid #999;
+    height: 25px;
+    width: 10px;
+    border-radius: 2px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.slider-wrapper > input::-webkit-slider-runnable-track {
+    width: 60%;
+    height: 8.4px;
+    cursor: pointer;
+    background: #41518e;
+    border-radius: 1.3px;
+    border: 0.2px solid #515b7d;
+}
+
+.slider-wrapper > input:focus::-webkit-slider-runnable-track {
+    background: #41518e;
+}
+
+.slider-wrapper > input::-moz-range-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: #41518e;
+    border-radius: 1.3px;
+    border: 0.2px solid #515b7d;
+}
+
+.slider-wrapper > input::-ms-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent;
+}
+
+.slider-wrapper > input:focus::-ms-fill-lower {
+    background: #3071a9;
+}
+
+.slider-wrapper > input::-ms-fill-upper {
+    background: #41518e;
+    border: 0.2px solid #515b7d;
+    border-radius: 2.6px;
 }
 
 /*****************
@@ -240,8 +338,6 @@ body {
     overflow: hidden;
     color: #fff;
     width: 150px;
-    -webkit-transition: left 400ms, left 400ms, -webkit-transform 400ms;
-    transition: left 400ms, left 400ms, transform 400ms;
 }
 
 .tgl .tgl-btn div {
@@ -336,7 +432,6 @@ div.form-control > table {
     box-shadow: 0 2px 5px rgba(0,0,0,0.26);
     margin: 0;
     color: #666;
-    transition: all 200ms ease 0s;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
 }
@@ -472,6 +567,7 @@ div.form-control > table {
         bottom: -55px;
     }
     
+    .range-with-display,
     .form-control {
         width: 60%;
     }
