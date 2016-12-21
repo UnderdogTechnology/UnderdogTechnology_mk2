@@ -145,7 +145,11 @@
     
     var r = function(title, component, args) {
         return {
-            controller: function() {},
+            controller: function() {
+                if(!app.model.user.hasAccess(menuItems[m.route()].auth)) {
+                    m.route('/');
+                }
+            },
             view: function(ctrl) {
                 var cmp = m(component, args || {});
                 

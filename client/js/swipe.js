@@ -18,11 +18,6 @@
     });
     
     window.addEventListener('touchend', function(e) {
-        
-        /*
-            TODO: add check for coordinates        
-        */
-        
         if(Date.now() - startTime > maxTime) return;
         var touch = e.changedTouches[0];
         var distX = touch.pageX - startX;
@@ -55,6 +50,11 @@
                 }
                 
                 if(commands[dir].selector)  {
+                    
+                    /* 
+                        TODO: add animation
+                    */
+                    
                     var rect = util.q(commands[dir].selector).getBoundingClientRect();
                     
                     if(startY > rect.bottom + restraint || startY < rect.top - restraint) return;

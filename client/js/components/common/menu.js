@@ -74,7 +74,6 @@ app.cmp.common.menu = {
     },
     view: function(ctrl, args) {
         
-        setTimeout(function() {
             app.shared.swipe.add(app.model.settings.leftHand() ? 'right' : 'left', {
                 callback: ctrl.show,
                 selector: '.menu'
@@ -82,7 +81,6 @@ app.cmp.common.menu = {
             app.shared.swipe.add(app.model.settings.leftHand() ? 'left' : 'right', {
                 callback: ctrl.hide
             });
-        }, 1)
         
         return m('div.menu-wrapper', {
                 class: app.model.settings.easyTouch() ? 'easy-touch' : ''
