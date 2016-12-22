@@ -3,13 +3,13 @@ app.cmp.common.detailBox = {
         var ctrl = {
             hidden: m.prop(true),
             show: function(evt) {
-                Velocity(util.q('#' + args.id + ' .d-box-content'), 'slideDown', app.model.settings.animationSpeed());
+                Velocity(util.q('.d-box-content', evt.currentTarget.parentNode), 'slideDown', app.model.settings.animationSpeed());
                 ctrl.hidden(false);
             },
             hide: function(evt) {
                 ctrl.hidden(true);
                 
-                Velocity(util.q('#' + args.id + ' .d-box-content'), 'slideUp', app.model.settings.animationSpeed()).then(args.onhide);
+                Velocity(util.q('.d-box-content', evt.currentTarget.parentNode), 'slideUp', app.model.settings.animationSpeed()).then(args.onhide);
             },
             toggle: function(evt) {
                 if(ctrl.hidden()) {
