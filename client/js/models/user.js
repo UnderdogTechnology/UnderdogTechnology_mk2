@@ -159,20 +159,23 @@
         return false;
     };
     
-    user.signIn = function(obj, route) {
-        if(!user.isValid(obj)) return;
+    user.signIn = function(obj, route, ignoreError) {
+        if(!user.isValid(obj)) return false;
         
         return app.db.remote.login(obj.name.toLowerCase(), obj.password).then(function() {
             return user.restoreUser();
         }).then(function() {
             if(route) vutil.changeRoute(route);
-        }).catch(showMessage);
+        }).catch(function(r) {
+            if(ignoreError) throw(r);
+            else showMessage(r);
+        });
     };
     
     user.signUp = function(obj, route) {
-        if(!user.isValid(obj)) return;
+        if(!user.isValid(obj)) return false;
         
-        return app.db.remote.signup(obj.name.toLowerCase(), obj.password[0], {
+        app.db.remote.signup(obj.name.toLowerCase(), obj.password[0], {
             metadata: {
                 email: obj.email
             }

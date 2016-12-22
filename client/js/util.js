@@ -38,7 +38,7 @@ var util = {
     f: function(string, obj) {
         for (var key in obj) {
             if (obj.hasOwnProperty(key)) {
-                string = string.replace(new RegExp('<' + key + '>', 'g'), obj[key]);
+                string = string.replace(new RegExp('<<' + key + '>>', 'g'), obj[key]);
             }
         }
         return string;

@@ -7,14 +7,27 @@ app.cmp.signUp = {
             email: m.prop(null),
             signUp: function(e) {
                 e.preventDefault();
-                app.model.user.signUp({
+                
+                if(app.model.user.isValid({
                     email: ctrl.email() || '',
                     name: ctrl.name() || '',
-                    password: [
-                        ctrl.password() || '',
-                        ctrl.cPassword() || ''
-                    ]
-                }, '/');
+                    password: ctrl.password() || ''
+                })) {
+                    app.model.user.signIn({
+                        name: ctrl.name() || '',
+                        password: ctrl.password() || ''
+                    }, '/', true).catch(function() {
+                        app.model.user.signUp({
+                            email: ctrl.email() || '',
+                            name: ctrl.name() || '',
+                            password: [
+                                ctrl.password() || '',
+                                ctrl.cPassword() || ''
+                            ]
+                        }, '/');
+                    })
+                }
+                
             }
         };
         return ctrl;
@@ -61,10 +74,10 @@ app.cmp.signUp = {
                     })
                 ]),
                 mutil.formControls([
-                    m('button[type="submit"].pure-button.btn.primary', 'Sign Up'),
                     m('a.pure-button.btn.secondary', {
                         onclick: vutil.changeRoute.bind(this, '/sign-in')
-                    }, 'Sign In')
+                    }, 'Sign In'),
+                    m('button[type="submit"].pure-button.btn.primary', 'Sign Up')
                 ])
             ])
         ]);

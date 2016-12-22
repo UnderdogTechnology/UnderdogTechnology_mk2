@@ -203,6 +203,10 @@ body {
     padding: .6em;
 }
 
+.d-box-hidden .d-box-content {
+    display: none;
+}
+
 .d-box-hidden .d-box-knob {
     transform: rotate(90deg);
 }

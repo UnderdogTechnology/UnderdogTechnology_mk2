@@ -1,27 +1,15 @@
-app.cmp.common.dBox = {
+app.cmp.common.detailBox = {
     controller: function(args) {
         var ctrl = {
-            contentHeight: m.prop(null),
             hidden: m.prop(true),
-            getContentHeight: function(e) {
-                var height = window.getComputedStyle(util.q('.d-box-content', e.currentTarget.parentNode))['height'];
-                ctrl.contentHeight(parseInt(height.slice(0, height.length - 2)) + 36 + 20);
-            },
             show: function(evt) {
-                
-                /*
-                    TODO: use Velocity
-                */
-                
-                ctrl.getContentHeight(evt);
+                Velocity(util.q('#' + args.id + ' .d-box-content'), 'slideDown', app.model.settings.animationSpeed());
                 ctrl.hidden(false);
             },
             hide: function(evt) {
                 ctrl.hidden(true);
                 
-                if(args.onhide) {
-                    setTimeout(args.onhide, 275)
-                }
+                Velocity(util.q('#' + args.id + ' .d-box-content'), 'slideUp', app.model.settings.animationSpeed()).then(args.onhide);
             },
             toggle: function(evt) {
                 if(ctrl.hidden()) {
@@ -35,10 +23,8 @@ app.cmp.common.dBox = {
         return ctrl;
     }, view: function(ctrl, args) {
         return m('div.d-box', {
-                class: ctrl.hidden() ? 'd-box-hidden' : '', 
-                style: {
-                    height: (ctrl.hidden() ? 36 : ctrl.contentHeight() || 36) + 'px'
-                }
+                id: args.id,
+                class: ctrl.hidden() ? 'd-box-hidden' : ''
             },
             m('div.d-box-header.primary', {
                     class: args.class,
@@ -48,8 +34,7 @@ app.cmp.common.dBox = {
                     class: 'fa fa-chevron-down'
                 }),
             args.header),
-            m('div.d-box-content', {
-            }, args.content)
+            m('div.d-box-content', args.content)
         )
     }
 };

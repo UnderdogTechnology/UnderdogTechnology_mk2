@@ -42,10 +42,10 @@ app.cmp.signIn = {
                     })
                 ]),
                 mutil.formControls([
-                    m('button[type="submit"].pure-button.btn.primary', 'Sign In'),
                     m('a.pure-button.btn.secondary', {
                         onclick: vutil.changeRoute.bind(this, '/sign-up')
-                    }, 'Sign Up')
+                    }, 'Sign Up'),
+                    m('button[type="submit"].pure-button.btn.primary', 'Sign In')
                 ])
             ])
         ]);

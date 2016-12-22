@@ -1,6 +1,11 @@
 app.cmp.common.switch = {
     controller: function(args) {
         var ctrl = {};
+        
+        /*
+            TODO: add drop box when checked
+        */
+        
         return ctrl;
     }, view: function(ctrl, args) {
         return m('div.tgl-wrapper', [

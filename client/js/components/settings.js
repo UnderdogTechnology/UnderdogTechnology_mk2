@@ -11,7 +11,8 @@ app.cmp.settings = {
     view: function(ctrl, args) {
         
         return m('div.settings', [
-            m.component(app.cmp.common.dBox, {
+            m.component(app.cmp.common.detailBox, {
+                id: 'account_details',
                 header: 'Account Details',
                 content: m('form.center-form.pure-form.pure-form-aligned', [
                     mutil.formGroup([
@@ -49,8 +50,8 @@ app.cmp.settings = {
                         })
                     ]),
                     mutil.formControls([
-                        m('button[type=submit].pure-button.btn.primary', 'Apply'),
-                        m('a.pure-button.btn.secondary', 'Cancel')
+                        m('a.pure-button.btn.secondary', 'Cancel'),
+                        m('button[type=submit].pure-button.btn.primary', 'Apply')
                     ])
                 ])
             }),
@@ -67,7 +68,7 @@ app.cmp.settings = {
             m.component(app.cmp.common.slider, {
                 param: app.model.settings.animationSpeed,
                 label: 'Animation Speed (' + app.model.settings.animationSpeed() + 'ms)',
-                min: 200,
+                min: 100,
                 max: 300
             })
         ]);
