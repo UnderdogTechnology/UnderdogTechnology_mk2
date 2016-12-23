@@ -4,7 +4,13 @@ app.cmp.settings = {
             name: m.prop(app.model.user.current.name || null),
             email: m.prop(app.model.user.current.email || null),
             password: m.prop(null),
-            cPassword: m.prop(null)
+            cPassword: m.prop(null),
+            getMaxMenuOffsest: function() {
+                var ulHeight = window.getComputedStyle(util.q('.menu > ul'))['height'].replace('px','');
+                var menuHeight = window.getComputedStyle(util.q('.menu'))['height'].replace('px','');
+                
+                return menuHeight - ulHeight;
+            }
         };
         return ctrl;
     },
@@ -65,17 +71,25 @@ app.cmp.settings = {
                 param: app.model.settings.easyTouch,
                 label: 'Easy Touch Mode',
                 content: m.component(app.cmp.common.slider, {
-                    param: app.model.settings.animationSpeed,
-                    label: 'Y Offset (' + app.model.settings.animationSpeed() + 'px)',
-                    min: 100,
-                    max: 300
+                    param: app.model.settings.easyTouchOffset,
+                    label: 'Y Offset (' + app.model.settings.easyTouchOffset() + 'px)',
+                    min: 0,
+                    max: ctrl.getMaxMenuOffsest(),
+                    oninput: function(v) {
+                        app.model.settings.easyTouchOffset(v);
+                        app.model.settings.apply();
+                    }
                 })
             }),
             m.component(app.cmp.common.slider, {
                 param: app.model.settings.animationSpeed,
                 label: 'Animation Speed (' + app.model.settings.animationSpeed() + 'ms)',
-                min: 100,
-                max: 300
+                min: 0,
+                max: 500,
+                oninput: function(v) {
+                    app.model.settings.animationSpeed(v);
+                    app.model.settings.apply();
+                }
             })
         ]);
     }

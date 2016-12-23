@@ -9,7 +9,7 @@ app.cmp.common.slider = {
                 min: args.min,
                 max: args.max,
                 value: args.param(),
-                onchange: m.withAttr('value', args.onchange || args.param)
+                oninput: m.withAttr('value', args.oninput || args.param)
             })
         ]);
     }

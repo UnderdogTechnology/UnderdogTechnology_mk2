@@ -1,13 +1,17 @@
 (function() {
-   var settings = app.model.settings = {
-       leftHand: m.prop(false),
-       easyTouch: m.prop(false),
-       animationSpeed: m.prop(275)
-   };
+    var settings = app.model.settings = {
+        leftHand: m.prop(false),
+        easyTouch: m.prop(false),
+        /*
+            TODO: change offset to percentage
+        */
+        easyTouchOffset: m.prop(0),
+        animationSpeed: m.prop(275)
+    };
    
-   settings.apply = function() {
-       applyCss();
-   }
+    settings.apply = function() {
+        applyCss();
+    }
    
     var applyCss = function() {
         var declarations = {
@@ -28,6 +32,9 @@
             }),
             '.alert': util.format('transition: all <<s>>ms ease 0s;', {
                 s: app.model.settings.animationSpeed()
+            }),
+            '.menu-wrapper.easy-touch .menu > ul': util.format('top: <<y>>px;', {
+                y: app.model.settings.easyTouchOffset()
             })
         };
         
