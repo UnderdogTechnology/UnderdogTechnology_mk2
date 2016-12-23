@@ -19,6 +19,7 @@
     };
     
     var menuItems = {
+        // UNDERDOG
         '/': {
             label: 'Home',
             href: '/',
@@ -52,6 +53,7 @@
             class: 'primary',
             auth: 'loggedin'
         },
+        // PLAN.IT
         '/plan-it': {
             label: 'Plan.it',
             icon: 'rocket',
@@ -126,6 +128,7 @@
             m.route.mode = 'pathname';
             
             m.route(document.body, '/', {
+                // UNDERDOG
                 '/': r('Home', cmp.home),
                 '/sign-up': r('Sign Up', cmp.signUp),
                 '/sign-in': r('Sign In', cmp.signIn),
@@ -133,7 +136,9 @@
                     signOut: true
                 }),
                 '/settings': r('Settings', cmp.settings),
-                '/plan-it/find': r('Find', cmp.planIt.find)
+                 // PLAN.IT
+                '/plan-it/find': r('Find', cmp.planIt.find),
+                '/plan-it/edit': r('Edit', cmp.planIt.edit)
             });
         })
     }
@@ -147,7 +152,7 @@
         // COMPONENTS
         components: [
             // PLAN.IT
-            'plan-it/find',
+            'plan-it/find', 'plan-it/edit',
             // COMMON
             'common/menu', 'common/alert', 'common/detail-box', 'common/switch', 'common/slider',
             // UNDERDOG

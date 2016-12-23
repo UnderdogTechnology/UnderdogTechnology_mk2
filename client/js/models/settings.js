@@ -2,9 +2,6 @@
     var settings = app.model.settings = {
         leftHand: m.prop(false),
         easyTouch: m.prop(false),
-        /*
-            TODO: change offset to percentage
-        */
         easyTouchOffset: m.prop(0),
         animationSpeed: m.prop(275)
     };
