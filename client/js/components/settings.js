@@ -63,7 +63,13 @@ app.cmp.settings = {
             m.component(app.cmp.common.switch, {
                 options: ['On', 'Off'],
                 param: app.model.settings.easyTouch,
-                label: 'Easy Touch Mode'
+                label: 'Easy Touch Mode',
+                content: m.component(app.cmp.common.slider, {
+                    param: app.model.settings.animationSpeed,
+                    label: 'Y Offset (' + app.model.settings.animationSpeed() + 'px)',
+                    min: 100,
+                    max: 300
+                })
             }),
             m.component(app.cmp.common.slider, {
                 param: app.model.settings.animationSpeed,

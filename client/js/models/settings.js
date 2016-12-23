@@ -11,22 +11,22 @@
    
     var applyCss = function() {
         var declarations = {
-            '.menu': util.f('transition: left <<s>>ms, right <<s>>ms;', {
+            '.menu': util.format('transition: left <<s>>ms, right <<s>>ms;', {
                 s: app.model.settings.animationSpeed()
             }),
-            '.menu-btn': util.f('transition: background-color <<s>>ms, margin <<s>>ms;', {
+            '.menu-btn': util.format('transition: background-color <<s>>ms, margin <<s>>ms;', {
                 s: app.model.settings.animationSpeed()
             }),
-            '.d-box': util.f('transition: height <<s>>ms;', {
+            '.d-box': util.format('transition: height <<s>>ms;', {
                 s: app.model.settings.animationSpeed()
             }),
-            '.d-box-knob': util.f('transition: transform <<s>>ms;', {
+            '.d-box-knob': util.format('transition: transform <<s>>ms;', {
                 s: app.model.settings.animationSpeed()
             }),
-            '.tgl-btn': util.f('transition: left <<s>>ms, transform <<s>>ms;', {
+            '.tgl-btn': util.format('transition: left <<s>>ms, transform <<s>>ms;', {
                 s: app.model.settings.animationSpeed()
             }),
-            '.alert': util.f('transition: all <<s>>ms ease 0s;', {
+            '.alert': util.format('transition: all <<s>>ms ease 0s;', {
                 s: app.model.settings.animationSpeed()
             })
         };

@@ -10,6 +10,14 @@ var util = {
     qq: function(q, c) {
         return [].slice.call((c || document).querySelectorAll(q));
     },
+    parent: function(elem, sel) {
+        count = 0;
+        while(elem == null || count >= 10 || '.' + elem.className != sel) {
+            elem = elem.parentNode;
+            count++;
+        }
+        return elem;
+    },
     extend: function(aObj, bObj, overwrite) {
         if(Array.isArray(aObj) && !Array.isArray(bObj)) {
                 aObj.push(bObj);
@@ -35,7 +43,7 @@ var util = {
         }
         return obj[keys[ranNum]];
     },
-    f: function(string, obj) {
+    format: function(string, obj) {
         for (var key in obj) {
             if (obj.hasOwnProperty(key)) {
                 string = string.replace(new RegExp('<<' + key + '>>', 'g'), obj[key]);

@@ -219,6 +219,10 @@ body {
     TODO: Fix up the slider css
 */
 
+.slider-wrapper {
+    margin: .7em auto;
+}
+
 .slider-wrapper > input {
     margin: 5px auto;
     -webkit-appearance: none;
@@ -369,6 +373,14 @@ body {
 }
 
 .tgl .tgl-switch {
+    display: none;
+}
+
+.tgl-wrapper .tgl-content {
+    width: 100%;
+    margin: .7em auto;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
     display: none;
 }
 
