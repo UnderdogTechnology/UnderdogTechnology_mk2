@@ -16,25 +16,25 @@
     var applyCss = function() {
         var declarations = {
             '.menu': util.format('transition: left <<s>>ms, right <<s>>ms;', {
-                s: app.model.settings.animationSpeed()
+                s: settings.animationSpeed()
             }),
             '.menu-btn': util.format('transition: background-color <<s>>ms, margin <<s>>ms;', {
-                s: app.model.settings.animationSpeed()
+                s: settings.animationSpeed()
             }),
             '.d-box': util.format('transition: height <<s>>ms;', {
-                s: app.model.settings.animationSpeed()
+                s: settings.animationSpeed()
             }),
             '.d-box-knob': util.format('transition: transform <<s>>ms;', {
-                s: app.model.settings.animationSpeed()
+                s: settings.animationSpeed()
             }),
             '.tgl-btn': util.format('transition: left <<s>>ms, transform <<s>>ms;', {
-                s: app.model.settings.animationSpeed()
+                s: settings.animationSpeed()
             }),
             '.alert': util.format('transition: all <<s>>ms ease 0s;', {
-                s: app.model.settings.animationSpeed()
+                s: settings.animationSpeed()
             }),
-            '.menu-wrapper.easy-touch .menu > ul': util.format('top: <<y>>px;', {
-                y: app.model.settings.easyTouchOffset()
+            '.menu-wrapper.easy-touch .menu': util.format('padding-top: <<y>>%;', {
+                y: settings.easyTouchOffset()
             })
         };
         

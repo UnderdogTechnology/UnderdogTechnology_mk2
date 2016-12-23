@@ -72,9 +72,9 @@ app.cmp.settings = {
                 label: 'Easy Touch Mode',
                 content: m.component(app.cmp.common.slider, {
                     param: app.model.settings.easyTouchOffset,
-                    label: 'Y Offset (' + app.model.settings.easyTouchOffset() + 'px)',
+                    label: 'Y Offset (' + app.model.settings.easyTouchOffset() + '%)',
                     min: 0,
-                    max: ctrl.getMaxMenuOffsest(),
+                    max: 80,
                     oninput: function(v) {
                         app.model.settings.easyTouchOffset(v);
                         app.model.settings.apply();

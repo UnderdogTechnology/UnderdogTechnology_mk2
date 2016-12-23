@@ -108,6 +108,8 @@
                 if(!app.model.user.hasAccess(menuItems[m.route()].auth)) {
                     m.route('/');
                 }
+                
+                document.title = 'UT - ' + title;
             },
             view: function(ctrl) {
                 var cmp = m(component, args || {});

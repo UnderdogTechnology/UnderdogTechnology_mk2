@@ -147,12 +147,6 @@ body {
     margin-left: -1.7em;
 }
 
-.menu-wrapper.easy-touch .menu > ul {
-    position: absolute;
-    left: 0;
-    right: 0;
-}
-
 .menu > ul li a {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
