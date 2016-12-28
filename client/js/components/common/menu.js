@@ -7,7 +7,6 @@ app.cmp.common.menu = {
             show: function() {
                 var vIn = {}
                 
-                //util.q('.menu-one').removeAttribute('style');
                 vIn[app.model.settings.leftHand() ? 'left' : 'right'] = '0px';
                 
                 if(!ctrl.visible()) {
@@ -25,7 +24,6 @@ app.cmp.common.menu = {
             hide: function() {
                 var vIn = {}
                 
-                //util.q('.menu-one').removeAttribute('style');
                 vIn[app.model.settings.leftHand() ? 'left' : 'right'] = '-300px';
                 
                 if(ctrl.visible()) {
@@ -35,7 +33,7 @@ app.cmp.common.menu = {
                     ctrl.hideChildren();
                 }
                 
-                Velocity(util.q('.menu'), vIn, app.model.settings.animationSpeed());
+                Velocity(util.q('.menu-one'), vIn, app.model.settings.animationSpeed());
             },
             showChildren: function(item, evt) {
                 if(item) {
@@ -141,7 +139,7 @@ app.cmp.common.menu = {
                         }
                     });*/
                 } else {
-                    app.shared.swipe.add(left ? 'right' : 'left', {
+                    app.shared.swipe.add('show-menu', {
                         direction: left ? 'right' : 'left',
                         callback: ctrl.show,
                         selector: '.menu-one',
@@ -162,7 +160,7 @@ app.cmp.common.menu = {
                         }
                     });
                     
-                    app.shared.swipe.add(left || 'right', {
+                    app.shared.swipe.add('hide-menu', {
                         direction: left || 'right',
                         callback: ctrl.hide,
                         drag: {

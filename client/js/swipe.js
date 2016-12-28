@@ -122,7 +122,7 @@
             case 'left':
             case 'right':
                 if((distY < -threshold || distY > threshold) && (swipe.up || swipe.down)) return;
-                if(distX >= -threshold && distX <= threshold) {
+                if(distX > -threshold && distX < threshold) {
                     if(command.drag && command.drag.cancel) command.drag.cancel();
                     return;   
                 }
@@ -154,8 +154,8 @@
     });
     
     app.shared.swipe = {
-        add: function(dir, obj) {
-            commands[dir] = obj;
+        add: function(key, obj) {
+            commands[key] = obj;
         }
     }
     
