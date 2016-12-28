@@ -84,13 +84,12 @@ var util = {
         util.q('.header').className = 'header ' + item.class;
         util.q('.menu-btn').className = 'menu-btn fa fa-bars ' + item.class;
         Velocity(header, {
-                fontSize: 0
-            }, app.model.settings.animationSpeed()).then(function(el) {
-                
-            el[0].textContent = item.name;
-            Velocity(el[0], 'reverse', app.model.settings.animationSpeed()).then(function() {
-                m.route(item.href);
-            });
+            fontSize: 0
+        }, app.model.settings.animationSpeed()).then(function(el) {
+            el[0].textContent = item.label;
+            return Velocity(el[0], 'reverse', app.model.settings.animationSpeed())
+        }).then(function() {
+            m.route(item.href);
         });
         
         app.shared.active.menu = item;

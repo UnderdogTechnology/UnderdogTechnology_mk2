@@ -12,9 +12,9 @@
    
     var applyCss = function() {
         var declarations = {
-            '.menu': util.format('transition: left <<s>>ms, right <<s>>ms;', {
+            /*'.menu': util.format('transition: left <<s>>ms, right <<s>>ms;', {
                 s: settings.animationSpeed()
-            }),
+            }),*/
             '.menu-btn': util.format('transition: background-color <<s>>ms, margin <<s>>ms;', {
                 s: settings.animationSpeed()
             }),

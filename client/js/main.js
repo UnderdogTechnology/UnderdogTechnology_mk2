@@ -130,12 +130,12 @@
             m.route(document.body, '/', {
                 // UNDERDOG
                 '/': r('Home', cmp.home),
-                '/sign-up': r('Sign Up', cmp.signUp),
-                '/sign-in': r('Sign In', cmp.signIn),
-                '/sign-out': r('Sign In', cmp.signIn, {
+                '/sign-up': r('Sign Up', cmp.user.signUp),
+                '/sign-in': r('Sign In', cmp.user.signIn),
+                '/sign-out': r('Sign In', cmp.user.signIn, {
                     signOut: true
                 }),
-                '/settings': r('Settings', cmp.settings),
+                '/settings': r('Settings', cmp.user.settings),
                  // PLAN.IT
                 '/plan-it/find': r('Find', cmp.planIt.find),
                 '/plan-it/edit': r('Edit', cmp.planIt.edit)
@@ -156,7 +156,7 @@
             // COMMON
             'common/menu', 'common/alert', 'common/detail-box', 'common/switch', 'common/slider',
             // UNDERDOG
-            'home', 'sign-up', 'sign-in', 'settings'
+            'home', 'user/sign-up', 'user/sign-in', 'user/settings'
         ]
     };
     
@@ -171,7 +171,8 @@
     
     app.cmp = {
         common: {},
-        planIt: {}
+        planIt: {},
+        user: {}
     };
     
     app.model = {};

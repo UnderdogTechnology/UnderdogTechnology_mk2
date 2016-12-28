@@ -1,4 +1,4 @@
-app.cmp.signUp = {
+app.cmp.user.signUp = {
     controller: function(args) {
         var ctrl = {
             name: m.prop(null),
@@ -44,7 +44,7 @@ app.cmp.signUp = {
                         autocapitalize: 'none',
                         placeholder: 'Email',
                         value: ctrl.email(),
-                        onchange: m.withAttr('value', ctrl.email)
+                        oninput: m.withAttr('value', ctrl.email)
                     })
                 ]),
                 mutil.formGroup([
@@ -54,7 +54,7 @@ app.cmp.signUp = {
                         autocapitalize: 'none',
                         placeholder: 'Username',
                         value: ctrl.name(),
-                        onchange: m.withAttr('value', ctrl.name)
+                        oninput: m.withAttr('value', ctrl.name)
                     })
                 ]),
                 mutil.formGroup([
@@ -62,7 +62,7 @@ app.cmp.signUp = {
                     m('input[type="password"].form-control', {
                         placeholder: 'Password',
                         value: ctrl.password(),
-                        onchange: m.withAttr('value', ctrl.password)
+                        oninput: m.withAttr('value', ctrl.password)
                     })
                 ]),
                 mutil.formGroup([
@@ -70,7 +70,7 @@ app.cmp.signUp = {
                     m('input[type="password"].form-control', {
                         placeholder: 'Password',
                         value: ctrl.cPassword(),
-                        onchange: m.withAttr('value', ctrl.cPassword)
+                        oninput: m.withAttr('value', ctrl.cPassword)
                     })
                 ]),
                 mutil.formControls([

@@ -24,7 +24,7 @@ app.cmp.planIt.find = {
                     m('label', 'Category'),
                     m('select.form-control')
                 ]),
-                m.component(app.cmp.common.detailBox, {
+                m(app.cmp.common.detailBox, {
                     onhide: ctrl.filter.clear,
                     header: 'Filter',
                     class: 'planit',

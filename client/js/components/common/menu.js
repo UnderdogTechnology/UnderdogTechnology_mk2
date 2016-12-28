@@ -5,9 +5,13 @@ app.cmp.common.menu = {
             visible: args.visible || m.prop(false),
             childVisible: args.childVisible || m.prop(false),
             show: function() {
+                var vIn = {}
+                
+                //util.q('.menu-one').removeAttribute('style');
+                vIn[app.model.settings.leftHand() ? 'left' : 'right'] = '0px';
+                
                 if(!ctrl.visible()) {
                     Velocity(util.q('.menu-wrapper .overlay'), 'fadeIn', app.model.settings.animationSpeed());
-                    
                     if(app.shared.active.menu.parent) {
                         ctrl.parent = args.items[app.shared.active.menu.parent];
                         ctrl.showChildren();
@@ -15,14 +19,23 @@ app.cmp.common.menu = {
                     
                     ctrl.visible(true);
                 }
+                
+                Velocity(util.q('.menu-one'), vIn, app.model.settings.animationSpeed())
             },
             hide: function() {
+                var vIn = {}
+                
+                //util.q('.menu-one').removeAttribute('style');
+                vIn[app.model.settings.leftHand() ? 'left' : 'right'] = '-300px';
+                
                 if(ctrl.visible()) {
                     Velocity(util.q('.menu-wrapper .overlay'), 'fadeOut', app.model.settings.animationSpeed());
                     
                     ctrl.visible(false);
                     ctrl.hideChildren();
                 }
+                
+                Velocity(util.q('.menu'), vIn, app.model.settings.animationSpeed());
             },
             showChildren: function(item, evt) {
                 if(item) {
@@ -39,9 +52,23 @@ app.cmp.common.menu = {
                     percent: .1
                 });
                 
+                var vIn = {}
+                
+                //util.q('.menu-one').removeAttribute('style')
+                vIn[app.model.settings.leftHand() ? 'left' : 'right'] = '0px';
+                
+                Velocity(util.q('.menu-two'), vIn, app.model.settings.animationSpeed());
+                
                 ctrl.childVisible(true);
             },
             hideChildren: function() {
+                var vIn = {}
+                
+                //util.q('.menu-one').removeAttribute('style')
+                vIn[app.model.settings.leftHand() ? 'left' : 'right'] = '-300px';
+                
+                Velocity(util.q('.menu-two'), vIn, app.model.settings.animationSpeed());
+                
                 ctrl.childVisible(false);
                 setTimeout(function() {
                     ctrl.parent = null;
@@ -64,23 +91,103 @@ app.cmp.common.menu = {
                 evt.preventDefault();
                 ctrl.hide();
                 vutil.changeRoute(key);
+            },
+            apply: function() {
+                /*
+                    TODO: make active.menu and ctrl.parent refer to key instead of full obj
+                */
+                app.shared.active.menu = args.items[m.route()];
+                app.shared.menuItems = {};
+                
+                var left = app.model.settings.leftHand() ? 'left' : false;
+                var selectedMenu = (ctrl.getChildren() || []).length ? '.menu-two' : '.menu-one';
+                
+                if((ctrl.getChildren() || []).length) {
+                    /*app.shared.swipe.add(left ? 'right' : 'left', {
+                        callback: ctrl.show,
+                        selector: '.menu-two',
+                        ignore: '.menu-btn .overlay',
+                        drag: {
+                            cancel: ctrl.hideChildren,
+                            selector: '.menu-two',
+                            left: {
+                                xMin: -300,
+                                xMax: 0,
+                                update: left || 'right'
+                            },
+                            right: {
+                                xMin: -300,
+                                xMax: 0,
+                                update: left || 'right'
+                            }
+                        }
+                    });
+                    
+                    app.shared.swipe.add(left || 'right', {
+                        callback: ctrl.hideChildren,
+                        drag: {
+                            cancel: ctrl.show,
+                            selector: '.menu-two',
+                            left: {
+                                xMin: -300,
+                                xMax: 0,
+                                update: left || 'right'
+                            },
+                            right: {
+                                xMin: -300,
+                                xMax: 0,
+                                update: left || 'right'
+                            }
+                        }
+                    });*/
+                } else {
+                    app.shared.swipe.add(left ? 'right' : 'left', {
+                        direction: left ? 'right' : 'left',
+                        callback: ctrl.show,
+                        selector: '.menu-one',
+                        ignore: '.menu-btn .overlay',
+                        drag: {
+                            cancel: ctrl.hide,
+                            selector: '.menu-one',
+                            left: {
+                                xMin: -300,
+                                xMax: 0,
+                                update: left || 'right'
+                            },
+                            right: {
+                                xMin: -300,
+                                xMax: 0,
+                                update: left || 'right'
+                            }
+                        }
+                    });
+                    
+                    app.shared.swipe.add(left || 'right', {
+                        direction: left || 'right',
+                        callback: ctrl.hide,
+                        drag: {
+                            cancel: ctrl.show,
+                            selector: '.menu-one',
+                            left: {
+                                xMin: -300,
+                                xMax: 0,
+                                update: left || 'right'
+                            },
+                            right: {
+                                xMin: -300,
+                                xMax: 0,
+                                update: left || 'right'
+                            }
+                        }
+                    });
+                }
             }
         };
-        
-        app.shared.active.menu = args.items[m.route()];
-        app.shared.menuItems = {};
         
         return ctrl;
     },
     view: function(ctrl, args) {
-        
-            app.shared.swipe.add(app.model.settings.leftHand() ? 'right' : 'left', {
-                callback: ctrl.show,
-                selector: '.menu'
-            });
-            app.shared.swipe.add(app.model.settings.leftHand() ? 'left' : 'right', {
-                callback: ctrl.hide
-            });
+        ctrl.apply();
         
         return m('div.menu-wrapper', {
                 class: app.model.settings.easyTouch() ? 'easy-touch' : ''
@@ -92,7 +199,7 @@ app.cmp.common.menu = {
                 class: app.shared.active.menu.class,
                 onclick: ctrl.toggle
             }),
-            m('div.menu.menu-one-' + (ctrl.visible() ? 'visible' : 'hidden'), [
+            m('div.menu.menu-one.menu-one-' + (ctrl.visible() ? 'visible' : 'hidden'), [
                 m('ul',
                     Object.keys(args.items).map(function(key, index) {
                         item = args.items[key];
@@ -115,7 +222,7 @@ app.cmp.common.menu = {
                     })
                 )
             ]),
-            m('div.menu.menu-two-' + (ctrl.childVisible() ? 'visible' : 'hidden'), [
+            m('div.menu.menu-two.menu-two-' + (ctrl.childVisible() ? 'visible' : 'hidden'), [
                 m('div.menu-heading', {
                     class: 'inverse-' + (ctrl.parent ? ctrl.parent.class : ''),
                     onclick: ctrl.hideChildren

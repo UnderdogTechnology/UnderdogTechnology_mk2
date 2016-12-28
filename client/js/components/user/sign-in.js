@@ -1,4 +1,4 @@
-app.cmp.signIn = {
+app.cmp.user.signIn = {
     controller: function(args) {
         if(args.signOut) {
             app.model.user.signOut();
@@ -30,7 +30,7 @@ app.cmp.signIn = {
                         autocapitalize: 'none',
                         placeholder: 'Username',
                         value: ctrl.name(),
-                        onchange: m.withAttr('value', ctrl.name)
+                        oninput: m.withAttr('value', ctrl.name)
                     })
                 ]),
                 mutil.formGroup([
@@ -38,7 +38,7 @@ app.cmp.signIn = {
                     m('input[type="password"].form-control', {
                         placeholder: 'Password',
                         value: ctrl.password(),
-                        onchange: m.withAttr('value', ctrl.password)
+                        oninput: m.withAttr('value', ctrl.password)
                     })
                 ]),
                 mutil.formControls([

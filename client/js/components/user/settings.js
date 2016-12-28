@@ -1,4 +1,4 @@
-app.cmp.settings = {
+app.cmp.user.settings = {
     controller: function(args) {
         var ctrl = {
             accountDetails: {
@@ -23,9 +23,8 @@ app.cmp.settings = {
         return ctrl;
     },
     view: function(ctrl, args) {
-        
         return m('div.settings', [
-            m.component(app.cmp.common.detailBox, {
+            m(app.cmp.common.detailBox, {
                 id: 'account_details',
                 onhide: ctrl.accountDetails.clear,
                 header: 'Account Details',
@@ -35,7 +34,7 @@ app.cmp.settings = {
                         m('input[type=text].form-control', {
                             autocorrect: 'off',
                             autocapitalize: 'none',
-                            readonly: true,
+                            readOnly: !app.model.user.hasAccess('_admin'),
                             placeholder: 'Username',
                             value: ctrl.accountDetails.name()
                         })
@@ -72,16 +71,16 @@ app.cmp.settings = {
                     ])
                 ])
             }),
-            m.component(app.cmp.common.switch, {
+            m(app.cmp.common.switch, {
                 options: ['On', 'Off'],
                 param: app.model.settings.leftHand,
                 label: 'Left Hand Mode'
             }),
-            m.component(app.cmp.common.switch, {
+            m(app.cmp.common.switch, {
                 options: ['On', 'Off'],
                 param: app.model.settings.easyTouch,
                 label: 'Easy Touch Mode',
-                content: m.component(app.cmp.common.slider, {
+                content: m(app.cmp.common.slider, {
                     param: app.model.settings.easyTouchOffset,
                     label: 'Y Offset (' + app.model.settings.easyTouchOffset() + '%)',
                     min: 0,
@@ -92,7 +91,7 @@ app.cmp.settings = {
                     }
                 })
             }),
-            m.component(app.cmp.common.slider, {
+            m(app.cmp.common.slider, {
                 param: app.model.settings.animationSpeed,
                 label: 'Animation Speed (' + app.model.settings.animationSpeed() + 'ms)',
                 min: 0,

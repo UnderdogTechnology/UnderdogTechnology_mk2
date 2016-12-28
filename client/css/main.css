@@ -120,21 +120,21 @@ body {
     left: -300px;
 }
 
-.layout.left-hand .menu-one-visible,
-.layout.left-hand .menu-two-visible {
-    left: 0px;
-}
-
 .layout.right-hand .menu-one-hidden,
 .layout.right-hand .menu-two-hidden {
     right: -300px;
+}
+/*
+.layout.left-hand .menu-one-visible,
+.layout.left-hand .menu-two-visible {
+    left: 0px;
 }
 
 .layout.right-hand .menu-one-visible,
 .layout.right-hand .menu-two-visible {
     right: 0px;
 }
-
+*/
 .layout.left-hand .menu-btn {
     float: left;
     margin-left: .7em;
