@@ -12,9 +12,6 @@
    
     var applyCss = function() {
         var declarations = {
-            /*'.menu': util.format('transition: left <<s>>ms, right <<s>>ms;', {
-                s: settings.animationSpeed()
-            }),*/
             '.menu-btn': util.format('transition: background-color <<s>>ms, margin <<s>>ms;', {
                 s: settings.animationSpeed()
             }),
@@ -37,6 +34,7 @@
         
         var style = document.createElement('style');
         style.type = 'text/css';
+        style.id = 'settings-css'
         
         var css = '';
         
@@ -50,6 +48,10 @@
         } else {
             style.appendChild(document.createTextNode(css));
         }
+        
+        var curSettings = util.q('#' + style.id);
+        
+        if(curSettings) curSettings.remove();
         
         (document.head || document.getElementsByTagName('head')[0]).appendChild(style);
     }
